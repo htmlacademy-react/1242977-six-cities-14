@@ -1,34 +1,42 @@
+import { Helmet } from 'react-helmet-async';
+import Logo from '../../components/logo/logo';
 import Card from '../../components/card/card';
+import {Link} from 'react-router-dom';
 
 type TMainPageProps = {
   offersCount: number;
-}
+};
 
-function MainPage({offersCount}: TMainPageProps) {
+function MainPage({ offersCount }: TMainPageProps) {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>{'6 cities'}</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41}/>
-              </a>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <Link
+                    className="header__nav-link header__nav-link--profile"
+                    to='/favorites'
+                  >
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">
+                      Oliver.conner@gmail.com
+                    </span>
                     <span className="header__favorite-count">3</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link className="header__nav-link" to='/login'>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -88,15 +96,26 @@ function MainPage({offersCount}: TMainPageProps) {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
+                  <li
+                    className="places__option places__option--active"
+                    tabIndex={0}
+                  >
+                    Popular
+                  </li>
+                  <li className="places__option" tabIndex={0}>
+                    Price: low to high
+                  </li>
+                  <li className="places__option" tabIndex={0}>
+                    Price: high to low
+                  </li>
+                  <li className="places__option" tabIndex={0}>
+                    Top rated first
+                  </li>
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length:offersCount}, (_, index) => (
-                  <Card key={index}/>
+                {Array.from({ length: offersCount }, (_, index) => (
+                  <Card key={index} />
                 ))}
               </div>
             </section>

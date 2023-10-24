@@ -1,6 +1,10 @@
+import { Helmet } from 'react-helmet-async';
 function Card() {
   return (
     <article className="cities__card place-card">
+      <Helmet>
+        <title>{'6 cities - card'}</title>
+      </Helmet>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
