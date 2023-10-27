@@ -1,48 +1,21 @@
-import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
-import Card from '../../components/card/card';
-import {Link} from 'react-router-dom';
 
-type TMainPageProps = {
-  offersCount: number;
+import { Helmet } from 'react-helmet-async';
+import { Place } from '../../components/app/app';
+import Header from '../../components/header/header';
+import Card from '../../components/card/card';
+
+
+type MainPageProps = {
+  places: Place[];
 };
 
-function MainPage({ offersCount }: TMainPageProps) {
+function MainPage({ places }: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>{'6 cities'}</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link
-                    className="header__nav-link header__nav-link--profile"
-                    to='/favorites'
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to='/login'>
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -114,8 +87,19 @@ function MainPage({ offersCount }: TMainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: offersCount }, (_, index) => (
-                  <Card key={index} />
+                {places.map((place) => (
+                  <Card key={place.id} place={{
+                    mark: '',
+                    image: '',
+                    price: 0,
+                    priceText: '',
+                    bookmark: undefined,
+                    rating: undefined,
+                    name: '',
+                    type: '',
+                    id: 0
+                  }}
+                  />
                 ))}
               </div>
             </section>

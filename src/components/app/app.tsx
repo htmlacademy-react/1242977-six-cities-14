@@ -8,18 +8,30 @@ import FavoritesPage from '../../pages/favorites-page/favortes-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 
-type TAppProps = {
-  offersCount: number;
+export type Place = {
+  mark: string;
+  image: string;
+  price: number;
+  priceText: string;
+  bookmark?: boolean;
+  rating?: number;
+  name: string;
+  type: string;
+  id: number;
 };
 
-function App({ offersCount }: TAppProps) {
+type AppProps = {
+  places: Place[];
+};
+
+function App({places}: AppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offersCount={offersCount} />}
+            element={<MainPage places={places}/>}
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
