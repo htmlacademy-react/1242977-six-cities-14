@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/Header';
+import Header from '../../components/header/header';
 
 function OfferPage() {
   const facilities = [

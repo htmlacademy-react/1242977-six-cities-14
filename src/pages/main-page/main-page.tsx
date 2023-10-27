@@ -1,14 +1,15 @@
 
 import { Helmet } from 'react-helmet-async';
+import { Place } from '../../components/app/app';
 import Header from '../../components/header/header';
 import Card from '../../components/card/card';
 
 
-type TMainPageProps = {
-  offersCount: number;
+type MainPageProps = {
+  places: Place[];
 };
 
-function MainPage({ offersCount }: TMainPageProps) {
+function MainPage({ places }: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -86,8 +87,19 @@ function MainPage({ offersCount }: TMainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: offersCount }, (_, index) => (
-                  <Card key={index} />
+                {places.map((place) => (
+                  <Card key={place.id} place={{
+                    mark: '',
+                    image: '',
+                    price: 0,
+                    priceText: '',
+                    bookmark: undefined,
+                    rating: undefined,
+                    name: '',
+                    type: '',
+                    id: 0
+                  }}
+                  />
                 ))}
               </div>
             </section>
