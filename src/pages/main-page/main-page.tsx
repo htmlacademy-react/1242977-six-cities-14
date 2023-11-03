@@ -1,13 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Card from '../../components/card/card';
+import {TOffer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 
 type TMainPageProps = {
-  offersCount: number;
+  offers: TOffer[];
 };
 
-function MainPage({ offersCount }: TMainPageProps) {
+function MainPage({ offers }: TMainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -114,9 +115,12 @@ function MainPage({ offersCount }: TMainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: offersCount }, (_, index) => (
+                {/* {offers.map((offer) => (
                   <Card key={index} />
-                ))}
+                ))} */}
+                {offers.map((offer) => {
+                  <Card key={offer.id} card={offer}/>
+                })}
               </div>
             </section>
             <div className="cities__right-section">
