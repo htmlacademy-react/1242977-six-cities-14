@@ -8,7 +8,7 @@ type TProtectedRouteProps = {
 }
 
 function PrivateRoute({restrictedFor, redirectTo, children}:TProtectedRouteProps) {
-  const authorizationStatus = AuthorizationStatus.NoAuth;
+  const authorizationStatus = AuthorizationStatus.Auth;
   return (
     restrictedFor === authorizationStatus ? (<Navigate to={redirectTo}/>) : (children)
   );

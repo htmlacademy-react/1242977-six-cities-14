@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import Card from '../../components/card/card';
-import {TOffer} from '../../types/offer';
+import { Place } from '../../components/app/app';
 import {Link} from 'react-router-dom';
+import Card from '../../components/card/card';
 
 type TMainPageProps = {
-  offers: TOffer[];
+  places: Place[];
 };
 
-function MainPage({ offers }: TMainPageProps) {
+function MainPage({ places }: TMainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -115,12 +115,9 @@ function MainPage({ offers }: TMainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {/* {offers.map((offer) => (
-                  <Card key={index} />
-                ))} */}
-                {offers.map((offer) => {
-                  <Card key={offer.id} card={offer}/>
-                })}
+                {places.map((place) => (
+                  <Card place={place} key={place.id} />
+                ))}
               </div>
             </section>
             <div className="cities__right-section">

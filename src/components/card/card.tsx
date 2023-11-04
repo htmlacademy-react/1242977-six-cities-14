@@ -1,29 +1,42 @@
-import { Helmet } from 'react-helmet-async';
-function Card() {
+
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
+type CardProps = {
+  place: {
+    mark: string;
+    image: string;
+    price: number;
+    priceText: string;
+    bookmark?: boolean;
+    rating?: number;
+    name: string;
+    type: string;
+    id?: number;
+  };
+};
+function Card({place} :CardProps) {
   return (
     <article className="cities__card place-card">
-      <Helmet>
-        <title>{'6 cities - card'}</title>
-      </Helmet>
       <div className="place-card__mark">
-        <span>Premium</span>
+        <span>{place.mark}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={place.image}
             width={260}
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
-            <span className="place-card__price-text">&#47;&nbsp;night</span>
+            <b className="place-card__price-value">&euro;{place.price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;{place.priceText}</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
@@ -39,9 +52,9 @@ function Card() {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to="#">{place.name}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{place.type}</p>
       </div>
     </article>
   );

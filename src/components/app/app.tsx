@@ -2,25 +2,36 @@ import { HelmetProvider } from 'react-helmet-async';
 import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { TOffer } from '../../types/offer';
 import MainPage from '../../pages/main-page/main-page';
 import NotFound from '../../pages/notFound-page/notFound-page';
 import FavoritesPage from '../../pages/favorites-page/favortes-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 
-type TAppProps = {
-  offers: TOffer[];
+export type Place = {
+  mark: string;
+  image: string;
+  price: number;
+  priceText: string;
+  bookmark?: boolean;
+  rating?: number;
+  name: string;
+  type: string;
+  id?: number;
 };
 
-function App({ offers }: TAppProps) {
+type TAppProps = {
+  places: Place[];
+};
+
+function App({ places }: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offers={offers} />}
+            element={<MainPage places={places} />}
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
