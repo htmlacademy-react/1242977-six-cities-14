@@ -41,7 +41,7 @@ function OfferPage() {
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to='/logo'>
+                  <Link className="header__nav-link" to='/login'>
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>

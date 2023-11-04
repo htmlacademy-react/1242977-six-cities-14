@@ -7,31 +7,20 @@ import NotFound from '../../pages/notFound-page/notFound-page';
 import FavoritesPage from '../../pages/favorites-page/favortes-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-
-export type Place = {
-  mark: string;
-  image: string;
-  price: number;
-  priceText: string;
-  bookmark?: boolean;
-  rating?: number;
-  name: string;
-  type: string;
-  id?: number;
-};
+import { TOffer } from '../../types/offer';
 
 type TAppProps = {
-  places: Place[];
+  offers: TOffer[];
 };
 
-function App({ places }: TAppProps) {
+function App({ offers }: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage places={places} />}
+            element={<MainPage offers={offers} />}
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
@@ -40,7 +29,7 @@ function App({ places }: TAppProps) {
           }
           />
           <Route path={AppRoute.Login} element={
-            <PrivateRoute restrictedFor={AuthorizationStatus.Auth} redirectTo={AppRoute.Root}>
+            <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Root}>
               <LoginPage />
             </PrivateRoute>
           }
