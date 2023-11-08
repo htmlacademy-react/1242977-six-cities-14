@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { TOffer } from '../../types/offer';
 import {Link} from 'react-router-dom';
+import ListOffers from '../../components/list-offers/list-offers';
 import Logo from '../../components/logo/logo';
 import Location from '../../components/location/location';
-import Card from '../../components/card/card';
 
 const cities: string[] = [
   'Paris',
@@ -98,9 +98,7 @@ function MainPage({ offers }: TMainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((place) => (
-                  <Card place={place} key={place.id} />
-                ))}
+                <ListOffers offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

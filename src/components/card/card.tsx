@@ -1,31 +1,27 @@
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { TOffer } from '../../types/offer';
 
-type CardProps = {
-  place: {
-    mark: string;
-    image: string;
-    price: number;
-    priceText: string;
-    bookmark?: boolean;
-    rating?: number;
-    name: string;
-    type: string;
-    id?: number;
-  };
+type TCardProps = {
+  place: TOffer;
 };
-function Card({place} :CardProps) {
+function Card({place} :TCardProps) {
+  const {isPremium, isFavorite, previewImage, price, rating, title, type} = place;
+
+  const [, setHoverPlace] = useState<TOffer>();
   return (
-    <article className="cities__card place-card">
+    <article onMouseEnter={() => setHoverPlace(place)} onMouseLeave={() => setHoverPlace(undefined)} className="cities__card place-card">
+      {isPremium &&
       <div className="place-card__mark">
-        <span>{place.mark}</span>
-      </div>
+        <span>Premium</span>
+      </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
-            src={place.image}
+            src={previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -35,10 +31,10 @@ function Card({place} :CardProps) {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{place.price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{place.priceText}</span>
+            <b className="place-card__price-value">&euro;{price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -47,14 +43,14 @@ function Card({place} :CardProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${(rating / 5) * 100}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">{place.name}</Link>
+          <Link to="#">{title}</Link>
         </h2>
-        <p className="place-card__type">{place.type}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

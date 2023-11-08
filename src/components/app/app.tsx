@@ -11,9 +11,10 @@ import { TOffer } from '../../types/offer';
 
 type TAppProps = {
   offers: TOffer[];
+  favorites: TOffer[];
 };
 
-function App({ offers }: TAppProps) {
+function App({ offers, favorites}: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -24,7 +25,7 @@ function App({ offers }: TAppProps) {
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
-              <FavoritesPage />
+              <FavoritesPage favorites={favorites}/>
             </PrivateRoute>
           }
           />
@@ -34,7 +35,7 @@ function App({ offers }: TAppProps) {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />} />
+          <Route path={AppRoute.Offer} element={<OfferPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
