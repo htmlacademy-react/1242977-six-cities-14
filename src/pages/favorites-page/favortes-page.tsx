@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import FavoritesCard from '../../components/favorites-card/favorites-card';
-import {Link} from 'react-router-dom';
-import { TOffer } from '../../types/offer';
+import { Link } from 'react-router-dom';
+import { TFavorite } from '../../mocks/favorites';
 
 type TFavoritesPageProps = {
-  favorites: TOffer[];
+  favorites: TFavorite[];
 }
-function FavoritesPage({favorites} :TFavoritesPageProps) {
+function FavoritesPage({ favorites }: TFavoritesPageProps) {
 
   return (
     <div className="page">
@@ -52,7 +52,7 @@ function FavoritesPage({favorites} :TFavoritesPageProps) {
             <ul className="favorites__list">
               {
                 favorites.map((item) => (
-                  <FavoritesCard favorites={item} key={item.id}/>
+                  <FavoritesCard favorites={item} key={item.city} />
                 ))
               }
             </ul>

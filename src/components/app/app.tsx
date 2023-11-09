@@ -7,14 +7,15 @@ import NotFound from '../../pages/notFound-page/notFound-page';
 import FavoritesPage from '../../pages/favorites-page/favortes-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-import { TOffer } from '../../types/offer';
+import { TFavorite } from '../../mocks/favorites';
+import { TOffer } from '../../types/offer.ts';
 
 type TAppProps = {
   offers: TOffer[];
-  favorites: TOffer[];
+  favorites: TFavorite[];
 };
 
-function App({ offers, favorites}: TAppProps) {
+function App({ offers, favorites }: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,7 +26,7 @@ function App({ offers, favorites}: TAppProps) {
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
-              <FavoritesPage favorites={favorites}/>
+              <FavoritesPage favorites={favorites} />
             </PrivateRoute>
           }
           />
