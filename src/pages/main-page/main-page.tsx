@@ -1,13 +1,24 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
-import Card from '../../components/card/card';
+import { TOffer } from '../../types/offer';
 import {Link} from 'react-router-dom';
+import ListOffers from '../../components/list-offers/list-offers';
+import Logo from '../../components/logo/logo';
+import Location from '../../components/location/location';
+
+const cities: string[] = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
 
 type TMainPageProps = {
-  offersCount: number;
+  offers: TOffer[];
 };
 
-function MainPage({ offersCount }: TMainPageProps) {
+function MainPage({ offers }: TMainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -49,36 +60,9 @@ function MainPage({ offersCount }: TMainPageProps) {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {cities.map((city) => (
+                <Location key={city} city={city} />
+              ))}
             </ul>
           </section>
         </div>
@@ -114,9 +98,7 @@ function MainPage({ offersCount }: TMainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: offersCount }, (_, index) => (
-                  <Card key={index} />
-                ))}
+                <ListOffers offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

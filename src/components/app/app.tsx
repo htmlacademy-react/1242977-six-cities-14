@@ -7,33 +7,36 @@ import NotFound from '../../pages/notFound-page/notFound-page';
 import FavoritesPage from '../../pages/favorites-page/favortes-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
+import { TFavorite } from '../../mocks/favorites';
+import { TOffer } from '../../types/offer.ts';
 
 type TAppProps = {
-  offersCount: number;
+  offers: TOffer[];
+  favorites: TFavorite[];
 };
 
-function App({ offersCount }: TAppProps) {
+function App({ offers, favorites }: TAppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offersCount={offersCount} />}
+            element={<MainPage offers={offers} />}
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
-              <FavoritesPage />
+              <FavoritesPage favorites={favorites} />
             </PrivateRoute>
           }
           />
           <Route path={AppRoute.Login} element={
-            <PrivateRoute restrictedFor={AuthorizationStatus.Auth} redirectTo={AppRoute.Root}>
+            <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Root}>
               <LoginPage />
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />} />
+          <Route path={AppRoute.Offer} element={<OfferPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
