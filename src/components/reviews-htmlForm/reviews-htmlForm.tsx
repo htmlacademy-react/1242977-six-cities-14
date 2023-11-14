@@ -1,13 +1,28 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 import { MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH } from '../../const';
 
-const ratingMap = {
-  '5': 'perfect',
-  '4': 'good',
-  '3': 'not bad',
-  '2': 'badly',
-  '1': 'terribly',
-};
+const ratingMap = [
+  {
+    value: 5,
+    label: 'perfect'
+  },
+  {
+    value: 4,
+    label: 'good'
+  },
+  {
+    value: 3,
+    label: 'not bad'
+  },
+  {
+    value: 2,
+    label: 'badly'
+  },
+  {
+    value: 1,
+    label: 'terribly'
+  },
+];
 
 function ReviewsHtmlForm() {
   const [comment, setComment] = useState('');
@@ -24,20 +39,20 @@ function ReviewsHtmlForm() {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {Object.entries(ratingMap).reverse().map(([score, title]) => (
-          <Fragment key={score}>
+        {ratingMap.map((item) => (
+          <Fragment key={item.value}>
             <input className="form__rating-input visually-hidden"
               name="rating"
-              value={score}
-              id={`${score}-stars`}
+              value={item.value}
+              id={`${item.value}-stars`}
               type="radio"
-              checked={rating === score}
+              checked={rating === item.label}
               onChange={handleInputChange}
             />
             <label
-              htmlFor={`${score}-stars`}
+              htmlFor={`${item.value}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={title}
+              title={item.label}
             >
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>

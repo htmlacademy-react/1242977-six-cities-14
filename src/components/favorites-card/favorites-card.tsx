@@ -19,7 +19,7 @@ function FavoritesCard({ favorites }: TFavoritesCardProps) {
       </div>
       <div className="favorites__places">
         {offer.map((item) => (
-          <FavoritesPlaces places={item} key={item.previewImage} />
+          <FavoritesPlaces places={item} key={item.title} />
         ))}
       </div>
     </li>
